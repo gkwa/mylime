@@ -1,0 +1,7 @@
+* mylime
+
+This is a description of my mylime.
+
+** Usage
+
+To use my project, run this command: ./mylime --verbose
