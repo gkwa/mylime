@@ -1,26 +1,21 @@
 package newerthan
 
 import (
-	"errors"
 	"log/slog"
 	"os"
-	"path/filepath"
 	"time"
+
+	"github.com/hako/durafmt"
+	"github.com/taylormonacelli/mylime/cache"
 )
 
-func Run(args []string, sentinelPath string) error {
-	if len(args) != 2 {
-		return errors.New("invalid number of arguments")
-	}
-
-	duration, err := ParseCustomDuration(args[0])
+func Run(durationStr string, project string, sentinelPath string) error {
+	duration, err := durafmt.ParseString(durationStr)
 	if err != nil {
 		return err
 	}
 
-	project := args[1]
-
-	if IsProjectNewerThan(project, duration, sentinelPath) {
+	if IsProjectNewerThan(project, duration.Duration(), sentinelPath) {
 		slog.Debug("project is newer than the specified duration")
 		os.Exit(0)
 	} else {
@@ -32,9 +27,7 @@ func Run(args []string, sentinelPath string) error {
 }
 
 func IsProjectNewerThan(project string, duration time.Duration, sentinelPath string) bool {
-	if sentinelPath == "" {
-		sentinelPath = filepath.Join("/var/cache", project, "last_update")
-	}
+	sentinelPath = cache.GetSentinelPath(project, sentinelPath)
 
 	if _, err := os.Stat(sentinelPath); os.IsNotExist(err) {
 		slog.Debug("Sentinel file does not exist", "file", sentinelPath)

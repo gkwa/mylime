@@ -9,10 +9,17 @@ import (
 )
 
 var cleanCacheCmd = &cobra.Command{
-	Use:   "cleancache",
-	Short: "Delete the cache file",
+	Use:   "cleancache PROJECT",
+	Short: "Delete the cache file for a project",
 	Run: func(cmd *cobra.Command, args []string) {
-		if err := cleancache.Run(sentinelPath); err != nil {
+		if len(args) != 1 {
+			slog.Error("Invalid number of arguments")
+			os.Exit(1)
+		}
+
+		project := args[0]
+
+		if err := cleancache.Run(project, sentinelPath); err != nil {
 			slog.Error("Failed to clean cache", "error", err)
 			os.Exit(1)
 		}

@@ -16,10 +16,12 @@ var newerThanCmd = &cobra.Command{
 Duration format:
  y - years
  M - months (30 days)
+ w - weeks
  d - days
  h - hours
  m - minutes
  s - seconds
+ ms - milliseconds
 
 Fractional units are also supported, for example: 2.5y, 1.75M, 3.14d
 
@@ -34,7 +36,15 @@ Examples:
  mylime newerthan 1.75M myproject
  mylime newerthan 3.14d myproject`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if err := newerthan.Run(args, sentinelPath); err != nil {
+		if len(args) != 2 {
+			slog.Error("Invalid number of arguments")
+			os.Exit(1)
+		}
+
+		duration := args[0]
+		project := args[1]
+
+		if err := newerthan.Run(duration, project, sentinelPath); err != nil {
 			slog.Error("Failed to run newerthan command", "error", err)
 			os.Exit(1)
 		}

@@ -90,10 +90,13 @@ func initConfig() {
 
 	logFormat = viper.GetString("log-format")
 	verbose = viper.GetBool("verbose")
+	sentinelPath = viper.GetString("sentinel")
 
 	slog.Debug("using config file", "path", viper.ConfigFileUsed())
 	slog.Debug("log-format", "value", logFormat)
 	slog.Debug("log-format", "value", viper.GetString("log-format"))
+	slog.Debug("sentinel", "value", sentinelPath)
+	slog.Debug("sentinel", "value", viper.GetString("sentinel"))
 
 	setupLogging()
 }
