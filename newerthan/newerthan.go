@@ -5,17 +5,16 @@ import (
 	"os"
 	"time"
 
-	"github.com/hako/durafmt"
 	"github.com/taylormonacelli/mylime/cache"
 )
 
 func Run(durationStr string, project string, sentinelPath string) error {
-	duration, err := durafmt.ParseString(durationStr)
+	duration, err := ParseCustomDuration(durationStr)
 	if err != nil {
 		return err
 	}
 
-	if IsProjectNewerThan(project, duration.Duration(), sentinelPath) {
+	if IsProjectNewerThan(project, duration, sentinelPath) {
 		slog.Debug("project is newer than the specified duration")
 		os.Exit(0)
 	} else {

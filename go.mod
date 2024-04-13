@@ -3,7 +3,6 @@ module github.com/taylormonacelli/mylime
 go 1.21.4
 
 require (
-	github.com/hako/durafmt v0.0.0-20210608085754-5c1018a4e16b
 	github.com/kirsle/configdir v0.0.0-20170128060238-e45d2f54772f
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/viper v1.17.0

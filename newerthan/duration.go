@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-var durationRegex = regexp.MustCompile(`^(\d+(?:\.\d+)?)([yMdhms])$`)
+var durationRegex = regexp.MustCompile(`^(\d+(?:\.\d+)?)([yMwdhms])$`)
 
 func ParseCustomDuration(s string) (time.Duration, error) {
 	matches := durationRegex.FindStringSubmatch(s)
@@ -27,6 +27,8 @@ func ParseCustomDuration(s string) (time.Duration, error) {
 		return time.Duration(value * 365 * 24 * float64(time.Hour)), nil
 	case "M":
 		return time.Duration(value * 30 * 24 * float64(time.Hour)), nil
+	case "w":
+		return time.Duration(value * 7 * 24 * float64(time.Hour)), nil
 	case "d":
 		return time.Duration(value * 24 * float64(time.Hour)), nil
 	case "h":
