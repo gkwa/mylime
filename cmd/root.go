@@ -61,13 +61,6 @@ func init() {
 		slog.Error("error binding sentinel flag", "error", err)
 		os.Exit(1)
 	}
-
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	err = viper.BindPFlag("toggle", rootCmd.Flags().Lookup("toggle"))
-	if err != nil {
-		slog.Error("error binding toggle flag", "error", err)
-		os.Exit(1)
-	}
 }
 
 func initConfig() {
