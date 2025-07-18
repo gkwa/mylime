@@ -39,9 +39,9 @@ changelog:
     - '^test:'
 homebrew:
   taps:
-  - owner: taylormonacelli
+  - owner: gkwa
     name: homebrew-tools
     branch: main
   name: mylime
   directory: Formula
-  homepage: https://github.com/taylormonacelli/homebrew-tools
+  homepage: https://github.com/gkwa/homebrew-tools
