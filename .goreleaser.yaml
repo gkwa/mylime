@@ -16,17 +16,17 @@ builds:
   binary: mylime
   id: mylime
 archives:
-- name_template: |-
+- format: tar.gz
+  name_template: |-
     mylime_ {{- title .Os }}_ {{- if eq .Arch "amd64" }}x86_64
                                {{- else if eq .Arch "386" }}i386
                                {{- else }}
                                {{ .Arch }}
                                {{ end }}
                                {{- if .Arm }}v{{ .Arm }}{{ end }}
-  files:
-  - LICENSE*
-  - README*
-  - CHANGELOG*
+  format_overrides:
+  - goos: windows
+    format: zip
 checksum:
   name_template: checksums.txt
 snapshot:
@@ -37,11 +37,11 @@ changelog:
     exclude:
     - '^docs:'
     - '^test:'
-homebrew:
-  taps:
-  - owner: gkwa
+brews:
+- name: mylime
+  directory: Formula
+  homepage: https://github.com/taylormonacelli/homebrew-tools
+  repository:
+    owner: taylormonacelli
     name: homebrew-tools
     branch: main
-  name: mylime
-  directory: Formula
-  homepage: https://github.com/gkwa/homebrew-tools
